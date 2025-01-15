@@ -3,19 +3,11 @@ import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
-import scheduleData from '@/horaris/horari-3r-2nTrim.json';
-import { cn } from '@/lib/utils';
-
-interface ClassInfo {
-  courseCode: string;
-  courseName: string;
-  professor: string;
-  location: string;
-  timeStart: string;
-  timeEnd: string;
-  typeOfClass?: string;
-  week?: string;
-}
+import { cn, getClassDuration, getClassForTimeSlot, getCurrentWeek, getDayName } from '@/lib/utils';
+import { ClassInfo, DaysOfWeek } from '@/types/types';
+import { useScheduleFromLocalStorage } from '../hooks/use-schedule-from-local-storage';
+import EditableScheduleFields from './editable-schedule-fields';
+import CreateClassForm from './create-class-form';
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const timeSlots = Array.from({ length: 11 }, (_, i) => {
@@ -23,51 +15,12 @@ const timeSlots = Array.from({ length: 11 }, (_, i) => {
   return `${hour.toString().padStart(2, '0')}:00`;
 });
 
-const getCurrentWeek = () => {
-  const startDate = new Date(scheduleData.startDate);
-  const currentDate = new Date();
-  const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
-  const diffWeeks = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 7));
-  return diffWeeks % 2 === 1 ? '1' : '2';
-};
-
-const getClassForTimeSlot = (day: string, time: string, selectedWeek: string): ClassInfo[] => {
-  return (scheduleData.schedule[day as keyof typeof scheduleData.schedule] as ClassInfo[]).filter(cls => {
-    const slotTime = parseInt(time.split(':')[0]);
-    const startTime = parseInt(cls.timeStart.split(':')[0]);
-    const endTime = parseInt(cls.timeEnd.split(':')[0]);
-    return slotTime >= startTime && slotTime < endTime &&
-           (cls.week === 'Both' || cls.week === selectedWeek || !cls.week);
-  });
-};
-
-const getDayName = (day: string) => {
-  const dayNames: Record<string, string> = {
-    monday: 'Dilluns',
-    tuesday: 'Dimarts',
-    wednesday: 'Dimecres',
-    thursday: 'Dijous',
-    friday: 'Divendres',
-    saturday: 'Dissabte',
-    sunday: 'Diumenge'
-  };
-  return dayNames[day];
-};
-
-const getClassDuration = (timeStart: string, timeEnd: string) => {
-  const start = parseInt(timeStart.split(':')[0]);
-  const end = parseInt(timeEnd.split(':')[0]);
-  const endMinutes = parseInt(timeEnd.split(':')[1]);
-
-  // If end time is close to the next hour (>= 45 minutes), round up to the next hour
-  const endHour = endMinutes >= 45 ? end + 1 : end;
-
-  return endHour - start;
-};
-
 export function Schedule () {
+  const { scheduleData, setScheduleData } = useScheduleFromLocalStorage();
   const [selectedClass, setSelectedClass] = useState<ClassInfo | null>(null);
-  const [selectedWeek, setSelectedWeek] = useState(getCurrentWeek());
+  const [selectedWeek, setSelectedWeek] = useState(getCurrentWeek(scheduleData));
+  const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<DaysOfWeek | null>(null);
 
   return (
     <>
@@ -77,7 +30,7 @@ export function Schedule () {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5" />
-            <span className="text-sm font-medium">Setmana actual: {getCurrentWeek()}</span>
+            <span className="text-sm font-medium">Setmana actual: {getCurrentWeek(scheduleData)}</span>
           </div>
           <Button
             variant="outline"
@@ -98,7 +51,7 @@ export function Schedule () {
           {timeSlots.map((time) => (
             <div
               key={time}
-              className="h-14 border-b border-gray-200 flex items-center justify-end pr-4 text-sm text-gray-600"
+              className="h-[50px] border-b border-gray-200 flex items-center justify-end pr-4 text-sm text-gray-600"
             >
               {time}
             </div>
@@ -108,13 +61,17 @@ export function Schedule () {
         {/* Days columns */}
         {days.map((day) => (
           <div key={day} className="border-l border-gray-200">
-            <div className="h-9 border-b border-gray-200 flex items-center justify-center font-semibold text-gray-800 bg-gray-50">
+            <div className="cursor-cell h-9 border-b border-gray-200 flex items-center justify-center font-semibold text-gray-800 bg-gray-50"
+            onClick={() => {
+              setSelectedDay(day as DaysOfWeek);
+              setIsCreationDialogOpen(true);
+            }}>
               {getDayName(day)}
             </div>
             {timeSlots.map((time) => {
-              const classes = getClassForTimeSlot(day, time, selectedWeek);
+              const classes = getClassForTimeSlot(day, time, selectedWeek, scheduleData);
               return (
-                <div key={`${day}-${time}`} className="h-14 border-b border-gray-200 relative">
+                <div key={`${day}-${time}`} className="h-[50px] border-b border-gray-200 relative">
                   {classes.map((classInfo) =>
                     parseInt(classInfo.timeStart.split(':')[0]) === parseInt(time.split(':')[0]) && (
                       <>
@@ -127,7 +84,7 @@ export function Schedule () {
                             'hover:opacity-90 transition-opacity cursor-pointer'
                           )}
                           style={{
-                            height: `calc(${getClassDuration(classInfo.timeStart, classInfo.timeEnd) * 3.5}rem - 8px)`,
+                            height: `calc(${getClassDuration(classInfo.timeStart, classInfo.timeEnd) * 3}rem - 8px)`,
                             width: '90%',
                             left: '5%',
                             marginTop: '4px',
@@ -160,38 +117,18 @@ export function Schedule () {
               {selectedClass?.courseName}
             </DialogTitle>
           </DialogHeader>
-          <div className="py-4">
-            <div className="space-y-3">
-              <div className="grid grid-cols-[120px_1fr] items-center">
-                <h4 className="text-sm font-medium text-gray-500">Codi del curs</h4>
-                <p className="text-sm">{selectedClass?.courseCode}</p>
-              </div>
-              <div className="grid grid-cols-[120px_1fr] items-center">
-                <h4 className="text-sm font-medium text-gray-500">Professor</h4>
-                <p className="text-sm">{selectedClass?.professor}</p>
-              </div>
-              <div className="grid grid-cols-[120px_1fr] items-center">
-                <h4 className="text-sm font-medium text-gray-500">Ubicació</h4>
-                <p className="text-sm">{selectedClass?.location}</p>
-              </div>
-              <div className="grid grid-cols-[120px_1fr] items-center">
-                <h4 className="text-sm font-medium text-gray-500">Horari</h4>
-                <p className="text-sm">{selectedClass?.timeStart} - {selectedClass?.timeEnd}</p>
-              </div>
-              {selectedClass?.typeOfClass && (
-                <div className="grid grid-cols-[120px_1fr] items-center">
-                  <h4 className="text-sm font-medium text-gray-500">Tipus de classe</h4>
-                  <p className="text-sm">{selectedClass.typeOfClass}</p>
-                </div>
-              )}
-              {selectedClass?.week && (
-                <div className="grid grid-cols-[120px_1fr] items-center">
-                  <h4 className="text-sm font-medium text-gray-500">Setmana</h4>
-                  <p className="text-sm">{selectedClass.week === 'Both' ? 'Ambdues setmanes' : `Setmana ${selectedClass.week}`}</p>
-                </div>
-              )}
-            </div>
-          </div>
+          <EditableScheduleFields scheduleData={scheduleData} setScheduleData={setScheduleData} selectedClass={selectedClass!} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isCreationDialogOpen} onOpenChange={() => setIsCreationDialogOpen(false)}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold border-b pb-2">
+              Nova classe
+            </DialogTitle>
+          </DialogHeader>
+          <CreateClassForm scheduleData={scheduleData} setScheduleData={setScheduleData} onSuccess={() => setIsCreationDialogOpen(false)} selectedDay={selectedDay} />
         </DialogContent>
       </Dialog>
     </>

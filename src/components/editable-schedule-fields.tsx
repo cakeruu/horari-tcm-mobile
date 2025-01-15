@@ -14,7 +14,7 @@ function EditableScheduleFields ({
   // Helper function to update schedule data and save to localStorage
   const updateScheduleAndSave = (updatedData: ScheduleData) => {
     setScheduleData(updatedData);
-    localStorage.setItem('schedule', JSON.stringify(updatedData));
+    window.localStorage.setItem('schedule', JSON.stringify(updatedData));
   };
 
   // Helper function to find and update a class in the schedule
@@ -24,8 +24,7 @@ function EditableScheduleFields ({
       schedule: Object.entries(scheduleData.schedule).reduce((acc, [day, classes]) => ({
         ...acc,
         [day]: classes.map(classItem =>
-          classItem.timeStart === selectedClass.timeStart &&
-          classItem.courseCode === selectedClass.courseCode
+          classItem.id === selectedClass.id
             ? updateFn(classItem)
             : classItem
         )
@@ -42,23 +41,10 @@ function EditableScheduleFields ({
     event: React.FormEvent<HTMLParagraphElement>
   ) => {
     const content = event.currentTarget.textContent || '';
-
-    if (field === 'timeStart' || field === 'timeEnd') {
-      // Handle time field specially
-      const times = content.split('-').map(t => t.trim());
-      if (times.length === 2) {
-        setScheduleData(updateClassInSchedule(classItem => ({
-          ...classItem,
-          timeStart: times[0],
-          timeEnd: times[1]
-        })));
-      }
-    } else {
-      setScheduleData(updateClassInSchedule(classItem => ({
-        ...classItem,
-        [field]: content
-      })));
-    }
+    setScheduleData(updateClassInSchedule(classItem => ({
+      ...classItem,
+      [field]: content
+    })));
   };
 
   return (
@@ -101,7 +87,7 @@ function EditableScheduleFields ({
           </p>
         </div>
         <div className="grid grid-cols-[120px_1fr] items-center">
-          <h4 className="text-sm font-medium text-gray-500">Horari</h4>
+          <h4 className="text-sm font-medium text-gray-500">Hora d'</h4>
           <p
             contentEditable
             spellCheck={false}
@@ -109,7 +95,19 @@ function EditableScheduleFields ({
             onBlur={(e) => handleContentEdit('timeStart', e)}
             suppressContentEditableWarning
           >
-            {selectedClass?.timeStart} - {selectedClass?.timeEnd}
+            {selectedClass?.timeStart}
+          </p>
+        </div>
+        <div className="grid grid-cols-[120px_1fr] items-center">
+          <h4 className="text-sm font-medium text-gray-500">Hora de finalització</h4>
+          <p
+            contentEditable
+            spellCheck={false}
+            className="text-sm outline-none border-b border-transparent focus:border-gray-300 px-1"
+            onBlur={(e) => handleContentEdit('timeEnd', e)}
+            suppressContentEditableWarning
+          >
+            {selectedClass?.timeEnd}
           </p>
         </div>
         <ScheduleSelects

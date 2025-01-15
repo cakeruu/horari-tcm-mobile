@@ -6,10 +6,13 @@ export function useScheduleFromLocalStorage () {
   const [scheduleData, setScheduleData] = useState<ScheduleData>(schedules[0].schedule);
 
   useEffect(() => {
-    const schedule = localStorage.getItem('schedule');
-    if (schedule) {
-      setScheduleData(JSON.parse(schedule));
-    }
+    const getSchedule = async () => {
+      const schedule = window.localStorage.getItem('schedule');
+      if (schedule) {
+        setScheduleData(JSON.parse(schedule));
+      }
+    };
+    getSchedule();
   }, []);
 
   return { scheduleData, setScheduleData };

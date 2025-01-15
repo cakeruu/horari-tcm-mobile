@@ -1,5 +1,6 @@
 
 export interface ClassInfo {
+    id: string;
     courseCode: string;
     courseName: string;
     professor: string;

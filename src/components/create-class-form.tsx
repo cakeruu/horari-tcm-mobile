@@ -33,6 +33,7 @@ export function CreateClassForm ({ scheduleData, setScheduleData, onSuccess, sel
     }
 
     const newClass: ClassInfo = {
+      id: crypto.randomUUID(),
       courseCode: formData.get('courseCode') as string,
       courseName: formData.get('courseName') as string,
       professor: formData.get('professor') as string,
@@ -54,8 +55,6 @@ export function CreateClassForm ({ scheduleData, setScheduleData, onSuccess, sel
 
     setScheduleData(updatedSchedule);
     localStorage.setItem('schedule', JSON.stringify(updatedSchedule));
-
-    // Reset form
     event.currentTarget.reset();
     onSuccess();
   };

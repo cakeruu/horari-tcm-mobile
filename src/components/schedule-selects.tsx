@@ -14,7 +14,7 @@ const ScheduleSelects = ({
   // Helper function to update schedule data and save to localStorage
   const updateScheduleAndSave = (updatedData: ScheduleData) => {
     setScheduleData(updatedData);
-    localStorage.setItem('schedule', JSON.stringify(updatedData));
+    window.localStorage.setItem('schedule', JSON.stringify(updatedData));
   };
 
   // Helper function to find and update a class in the schedule
@@ -24,8 +24,7 @@ const ScheduleSelects = ({
       schedule: Object.entries(scheduleData.schedule).reduce((acc, [day, classes]) => ({
         ...acc,
         [day]: classes.map(classItem =>
-          classItem.timeStart === selectedClass.timeStart &&
-          classItem.courseCode === selectedClass.courseCode
+          classItem.id === selectedClass.id
             ? updateFn(classItem)
             : classItem
         )

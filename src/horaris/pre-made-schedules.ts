@@ -1,4 +1,11 @@
-export const schedules = [
+import { ScheduleData } from '@/types/types';
+
+type Schedule = {
+  name: string;
+  schedule: ScheduleData;
+}
+
+export const schedules: Schedule[] = [
   {
     name: '3r-2nTrim',
     schedule:
@@ -9,6 +16,7 @@ export const schedules = [
         monday: [],
         tuesday: [
           {
+            id: '1',
             week: '2',
             typeOfClass: 'Pràctiques',
             courseCode: '107222',
@@ -19,6 +27,7 @@ export const schedules = [
             timeEnd: '10:00'
           },
           {
+            id: '2',
             week: '1',
             typeOfClass: 'Teoria',
             courseCode: '107222',
@@ -29,6 +38,7 @@ export const schedules = [
             timeEnd: '10:00'
           },
           {
+            id: '3',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107222',
@@ -39,6 +49,7 @@ export const schedules = [
             timeEnd: '12:00'
           },
           {
+            id: '4',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107322',
@@ -49,6 +60,7 @@ export const schedules = [
             timeEnd: '14:00'
           },
           {
+            id: '5',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107324',
@@ -59,6 +71,7 @@ export const schedules = [
             timeEnd: '16:45'
           },
           {
+            id: '6',
             week: 'Both',
             typeOfClass: 'Pràctiques',
             courseCode: '107324',
@@ -71,6 +84,7 @@ export const schedules = [
         ],
         wednesday: [
           {
+            id: '7',
             week: 'Both',
             typeOfClass: 'Pràctiques',
             courseCode: '107321',
@@ -81,6 +95,7 @@ export const schedules = [
             timeEnd: '12:00'
           },
           {
+            id: '8',
             week: 'Both',
             typeOfClass: 'Pràctiques',
             courseCode: '107322',
@@ -93,6 +108,7 @@ export const schedules = [
         ],
         thursday: [
           {
+            id: '9',
             week: '1',
             typeOfClass: 'Pràctiques',
             courseCode: '107323',
@@ -103,6 +119,7 @@ export const schedules = [
             timeEnd: '12:00'
           },
           {
+            id: '10',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107321',
@@ -113,6 +130,7 @@ export const schedules = [
             timeEnd: '14:00'
           },
           {
+            id: '11',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107324',
@@ -125,6 +143,7 @@ export const schedules = [
         ],
         friday: [
           {
+            id: '12',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107323',
@@ -135,6 +154,7 @@ export const schedules = [
             timeEnd: '12:00'
           },
           {
+            id: '13',
             week: 'Both',
             typeOfClass: 'Teoria',
             courseCode: '107322',
@@ -145,19 +165,7 @@ export const schedules = [
             timeEnd: '14:00'
           }
         ],
-        saturday: [
-          {
-            week: 'Both',
-            typeOfClass: 'Teoria',
-            day: 'saturday',
-            courseCode: '3374923',
-            courseName: 'jsdnmakl',
-            professor: 'asmcnas',
-            location: 'sanckasm',
-            timeStart: '20:15',
-            timeEnd: '00:00'
-          }
-        ],
+        saturday: [],
         sunday: []
       }
     }

@@ -87,7 +87,7 @@ function EditableScheduleFields ({
           </p>
         </div>
         <div className="grid grid-cols-[120px_1fr] items-center">
-          <h4 className="text-sm font-medium text-gray-500">Hora d'</h4>
+          <h4 className="text-sm font-medium text-gray-500">Hora d'inici</h4>
           <p
             contentEditable
             spellCheck={false}

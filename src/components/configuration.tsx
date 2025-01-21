@@ -19,7 +19,7 @@ export function Configuration ({ nextWeek, setNextWeek, setSchedule }: ConfigPro
         <DropdownMenuContent loop align='center'>
             <DropdownMenuItem onSelect={(event) => {
               event.preventDefault();
-              setNextWeek(nextWeek === '1' ? '2' : '1');
+              setNextWeek(nextWeek);
             }}>
                 <div className='flex flex-row w-full justify-between items-center gap-2'>
                   Veure setmana {nextWeek}

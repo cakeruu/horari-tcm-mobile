@@ -43,7 +43,7 @@ export function Schedule () {
             <Calendar className="w-5 h-5" />
             <span className="text-sm font-medium">Setmana actual: {getCurrentWeek(scheduleData)}</span>
           </div>
-          <Configuration nextWeek={selectedWeek} setNextWeek={setSelectedWeek} setSchedule={setScheduleData} />
+          <Configuration nextWeek={selectedWeek === '1' ? '2' : '1'} setNextWeek={setSelectedWeek} setSchedule={setScheduleData} />
         </div>
       </div>
 

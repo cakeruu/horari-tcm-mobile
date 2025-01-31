@@ -19,49 +19,56 @@ export function Configuration ({ nextWeek, setNextWeek, setSchedule }: ConfigPro
                 <Settings className='size-5'/>
             </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent loop align='center'>
-            <DropdownMenuItem onSelect={(event) => {
-              event.preventDefault();
-              setNextWeek(nextWeek);
-            }}>
-                <div className='flex flex-row w-full justify-between items-center gap-2'>
-                  Veure setmana {nextWeek}
-                  <CalendarDaysIcon className='size-4'/>
-                </div>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={() => {
-              const erasedSchedule = {
-                startDate: new Date().toISOString(),
-                courseYear: 'Nou curs',
-                schedule: {
-                  monday: [],
-                  tuesday: [],
-                  wednesday: [],
-                  thursday: [],
-                  friday: [],
-                  saturday: [],
-                  sunday: []
-                }
-              };
-              setSchedule(erasedSchedule);
-              window.localStorage.setItem('schedule', JSON.stringify(erasedSchedule));
-            }}>
-                <div className='flex flex-row w-full justify-between items-center gap-2'>
-                  Esborrar horari
-                  <TrashIcon className='size-4'/>
-                </div>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={() => {
-              setSchedule(schedules[0].schedule);
-              window.localStorage.setItem('schedule', JSON.stringify(schedules[0].schedule));
-            }}>
+        <DropdownMenuContent ref={(ref) =>
+          ref?.addEventListener('touchend', (e) =>
+            e.preventDefault()
+          )
+        }
+        loop
+        align='center'
+        >
+          <DropdownMenuItem onSelect={(event) => {
+            event.preventDefault();
+            setNextWeek(nextWeek);
+          }}>
               <div className='flex flex-row w-full justify-between items-center gap-2'>
-                Horari per defecte
-                <RefreshCcw className='size-4'/>
+                Veure setmana {nextWeek}
+                <CalendarDaysIcon className='size-4'/>
               </div>
-            </DropdownMenuItem>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={() => {
+            const erasedSchedule = {
+              startDate: new Date().toISOString(),
+              courseYear: 'Nou curs',
+              schedule: {
+                monday: [],
+                tuesday: [],
+                wednesday: [],
+                thursday: [],
+                friday: [],
+                saturday: [],
+                sunday: []
+              }
+            };
+            setSchedule(erasedSchedule);
+            window.localStorage.setItem('schedule', JSON.stringify(erasedSchedule));
+          }}>
+              <div className='flex flex-row w-full justify-between items-center gap-2'>
+                Esborrar horari
+                <TrashIcon className='size-4'/>
+              </div>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={() => {
+            setSchedule(schedules[0].schedule);
+            window.localStorage.setItem('schedule', JSON.stringify(schedules[0].schedule));
+          }}>
+            <div className='flex flex-row w-full justify-between items-center gap-2'>
+              Horari per defecte
+              <RefreshCcw className='size-4'/>
+            </div>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
   );

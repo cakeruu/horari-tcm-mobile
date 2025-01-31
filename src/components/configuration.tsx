@@ -3,6 +3,7 @@ import { TrashIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { ScheduleData } from '@/types/types';
 import { schedules } from '@/horaris/pre-made-schedules';
+import { Button } from './ui/button';
 
 interface ConfigProps {
     nextWeek: string;
@@ -14,7 +15,9 @@ export function Configuration ({ nextWeek, setNextWeek, setSchedule }: ConfigPro
   return (
     <DropdownMenu>
         <DropdownMenuTrigger>
-            <Settings className='size-5'/>
+            <Button variant='ghost'>
+                <Settings className='size-5'/>
+            </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent loop align='center'>
             <DropdownMenuItem onSelect={(event) => {

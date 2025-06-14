@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Horari TCM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app for managing university class schedules.
 
-Currently, two official plugins are available:
+![ScreenShot](./public/screenshot.png)
+<h5 align="center">
+  <a href="https://horari-tcm-mobile.vercel.app/">Live Demo</a>
+</h5>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Interactive Schedule Grid**: Visual weekly schedule with time slots (8:00-18:00)
+- **Dual Week System**: Switch between Week 1 and Week 2 schedules
+- **Class Management**: Create, edit, and delete classes with detailed information
+- **Editable Fields**: Click any class to edit course code, professor, location, and times
+- **Class Types**: Support for Theory and Practice classes with color coding
+- **Persistent Storage**: Auto-save to browser local storage
+- **Pre-made Templates**: Includes default schedules for quick setup
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Built With
 
-- Configure the top-level `parserOptions` property like this:
+- React + TypeScript
+- Tailwind CSS
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Usage
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Click on any day header to create a new class, or click on existing classes to edit them. Use the settings menu to switch weeks, reset the schedule, or load defaults. You can also add a new schedule in the *pre-made-schedules.ts* file.

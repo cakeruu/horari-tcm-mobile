@@ -10,7 +10,7 @@ import CreateClassForm from './create-class-form';
 import { Configuration } from './configuration';
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-const timeSlots = Array.from({ length: 15 }, (_, i) => {
+const timeSlots = Array.from({ length: 14 }, (_, i) => {
   const hour = 8 + i;
   return `${hour.toString().padStart(2, '0')}:00`;
 });
@@ -50,15 +50,17 @@ export function Schedule () {
       <div className="grid grid-cols-[auto_repeat(7,1fr)] relative">
         {/* Time column */}
         <div className="relative z-10">
-          <div className="h-9 border-b border-gray-200 flex items-center justify-end pr-4 font-semibold text-gray-600">
+          <div className="h-16 border-b border-gray-200 flex items-center justify-end pr-4 font-semibold text-gray-600">
             Hora
           </div>
           {timeSlots.map((time) => (
             <div
               key={time}
-              className="h-[80px] border-b border-gray-200 flex items-center justify-end pr-4 text-sm text-gray-600"
+              className="h-[80px] border-b border-gray-200 flex items-start justify-end pr-4 pt-1 text-sm text-gray-600 relative"
             >
-              {time}
+              <div className="absolute top-[-10.5px] bg-white">
+                {time}
+              </div>
             </div>
           ))}
         </div>
@@ -66,7 +68,7 @@ export function Schedule () {
         {/* Days columns */}
         {days.map((day) => (
           <div key={day} className="border-l border-gray-200">
-            <div className="cursor-pointer h-9 hover:scale-[1.02] hover:bg-gray-100 hover:border-gray-300 hover:border transition-all duration-300 border-b border-gray-200 flex items-center justify-center font-semibold text-gray-800 bg-gray-50"
+            <div className="cursor-pointer h-16 hover:scale-[1.02] hover:bg-gray-100 hover:border-gray-300 hover:border transition-all duration-300 border-b border-gray-200 flex items-center justify-center font-semibold text-gray-800 bg-gray-50"
             onClick={() => {
               setSelectedDay(day as DaysOfWeek);
               setIsCreationDialogOpen(true);

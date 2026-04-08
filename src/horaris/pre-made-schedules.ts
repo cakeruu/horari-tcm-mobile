@@ -173,7 +173,7 @@ export const schedules: Schedule[] = [
   {
     name: '4t-3rTrim',
     schedule: {
-      startDate: '2025-08-04',
+      startDate: '2026-04-07',
       courseYear: '4t DB GEISI-GDPV',
       schedule: {
         monday: [
@@ -197,7 +197,7 @@ export const schedules: Schedule[] = [
             professor: 'González Fernández',
             location: 'TCM1-002',
             timeStart: '17:00',
-            timeEnd: '21:00'
+            timeEnd: '20:45'
           }
         ],
         tuesday: [
@@ -221,7 +221,7 @@ export const schedules: Schedule[] = [
             professor: 'Rodríguez García, Daniel',
             location: 'TCM1-104',
             timeStart: '15:00',
-            timeEnd: '17:00'
+            timeEnd: '16:45'
           },
           {
             id: '5',
@@ -243,10 +243,10 @@ export const schedules: Schedule[] = [
             professor: 'Rodríguez García, Daniel',
             location: 'TCM1-104',
             timeStart: '17:00',
-            timeEnd: '19:00'
+            timeEnd: '18:45'
           },
           {
-            id: '7',
+            id: '10',
             week: '2',
             typeOfClass: 'Teoria',
             courseCode: '107431',
@@ -265,7 +265,7 @@ export const schedules: Schedule[] = [
             professor: 'Caimel Moreno, Javier',
             location: 'TCM1-201',
             timeStart: '16:00',
-            timeEnd: '18:00'
+            timeEnd: '17:45'
           }
         ],
         wednesday: [],
@@ -279,7 +279,7 @@ export const schedules: Schedule[] = [
             professor: 'Obiol Madrid, Sandra',
             location: 'TCM1-210',
             timeStart: '18:00',
-            timeEnd: '20:00'
+            timeEnd: '19:45'
           },
           {
             id: '9',
@@ -290,7 +290,7 @@ export const schedules: Schedule[] = [
             professor: 'Caimel Moreno, Javier',
             location: 'TCM1-210',
             timeStart: '15:00',
-            timeEnd: '18:00'
+            timeEnd: '17:45'
           }
         ],
         friday: [
@@ -301,9 +301,9 @@ export const schedules: Schedule[] = [
             courseCode: '106334',
             courseName: 'PROJECTE DE CREACIÓ I DESENVOLUPAMENT III',
             professor: 'González Fernández',
-            location: 'TCM1-002',
+            location: 'TCM1-103',
             timeStart: '17:00',
-            timeEnd: '21:00'
+            timeEnd: '20:45'
           }
         ],
         saturday: [],

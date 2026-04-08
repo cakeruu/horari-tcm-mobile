@@ -169,5 +169,146 @@ export const schedules: Schedule[] = [
         sunday: []
       }
     }
+  },
+  {
+    name: '4t-3rTrim',
+    schedule: {
+      startDate: '2025-08-04',
+      courseYear: '4t DB GEISI-GDPV',
+      schedule: {
+        monday: [
+          {
+            id: '1',
+            week: 'Both',
+            typeOfClass: 'Teoria',
+            courseCode: '107333',
+            courseName: "TÈCNIQUES D'INTEL·LIGÈNCIA ARTIFICIAL",
+            professor: 'Obiol Madrid, Sandra',
+            location: 'TCM1-201',
+            timeStart: '08:15',
+            timeEnd: '10:00'
+          },
+          {
+            id: '2',
+            week: 'Both',
+            typeOfClass: 'Pràctiques',
+            courseCode: '106334',
+            courseName: 'PROJECTE DE CREACIÓ I DESENVOLUPAMENT III',
+            professor: 'González Fernández',
+            location: 'TCM1-002',
+            timeStart: '17:00',
+            timeEnd: '21:00'
+          }
+        ],
+        tuesday: [
+          {
+            id: '3',
+            week: '1',
+            typeOfClass: 'Teoria',
+            courseCode: '107333',
+            courseName: "TÈCNIQUES D'INTEL·LIGÈNCIA ARTIFICIAL",
+            professor: 'Obiol Madrid, Sandra',
+            location: 'TCM1-102',
+            timeStart: '08:15',
+            timeEnd: '10:00'
+          },
+          {
+            id: '4',
+            week: '1',
+            typeOfClass: 'Teoria',
+            courseCode: '107431',
+            courseName: 'DISSENY DE NIVELLS',
+            professor: 'Rodríguez García, Daniel',
+            location: 'TCM1-104',
+            timeStart: '15:00',
+            timeEnd: '17:00'
+          },
+          {
+            id: '5',
+            week: '2',
+            typeOfClass: 'Pràctiques',
+            courseCode: '107431',
+            courseName: 'DISSENY DE NIVELLS',
+            professor: 'Rodríguez García, Daniel',
+            location: 'TCM1-104',
+            timeStart: '15:00',
+            timeEnd: '16:00'
+          },
+          {
+            id: '6',
+            week: '1',
+            typeOfClass: 'Teoria',
+            courseCode: '107431',
+            courseName: 'DISSENY DE NIVELLS',
+            professor: 'Rodríguez García, Daniel',
+            location: 'TCM1-104',
+            timeStart: '17:00',
+            timeEnd: '19:00'
+          },
+          {
+            id: '7',
+            week: '2',
+            typeOfClass: 'Teoria',
+            courseCode: '107431',
+            courseName: 'DISSENY DE NIVELLS',
+            professor: 'Rodríguez García, Daniel',
+            location: 'TCM1-104',
+            timeStart: '18:00',
+            timeEnd: '19:00'
+          },
+          {
+            id: '8',
+            week: '2',
+            typeOfClass: 'Teoria',
+            courseCode: '107334',
+            courseName: 'DISSENY 3D II',
+            professor: 'Caimel Moreno, Javier',
+            location: 'TCM1-201',
+            timeStart: '16:00',
+            timeEnd: '18:00'
+          }
+        ],
+        wednesday: [],
+        thursday: [
+          {
+            id: '7',
+            week: '2',
+            typeOfClass: 'Pràctiques',
+            courseCode: '107333',
+            courseName: "TÈCNIQUES D'INTEL·LIGÈNCIA ARTIFICIAL",
+            professor: 'Obiol Madrid, Sandra',
+            location: 'TCM1-210',
+            timeStart: '18:00',
+            timeEnd: '20:00'
+          },
+          {
+            id: '9',
+            week: 'Both',
+            typeOfClass: 'Teoria',
+            courseCode: '107334',
+            courseName: 'DISSENY 3D II',
+            professor: 'Caimel Moreno, Javier',
+            location: 'TCM1-210',
+            timeStart: '15:00',
+            timeEnd: '18:00'
+          }
+        ],
+        friday: [
+          {
+            id: '8',
+            week: 'Both',
+            typeOfClass: 'Pràctiques',
+            courseCode: '106334',
+            courseName: 'PROJECTE DE CREACIÓ I DESENVOLUPAMENT III',
+            professor: 'González Fernández',
+            location: 'TCM1-002',
+            timeStart: '17:00',
+            timeEnd: '21:00'
+          }
+        ],
+        saturday: [],
+        sunday: []
+      }
+    }
   }
 ];

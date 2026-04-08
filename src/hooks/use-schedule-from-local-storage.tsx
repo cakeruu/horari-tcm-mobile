@@ -3,7 +3,7 @@ import { ScheduleData } from '@/types/types';
 import { useEffect, useState } from 'react';
 
 export function useScheduleFromLocalStorage () {
-  const [scheduleData, setScheduleData] = useState<ScheduleData>(schedules[0].schedule);
+  const [scheduleData, setScheduleData] = useState<ScheduleData>(schedules[1].schedule);
 
   useEffect(() => {
     const getSchedule = async () => {

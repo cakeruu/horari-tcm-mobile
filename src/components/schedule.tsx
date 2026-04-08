@@ -10,7 +10,7 @@ import CreateClassForm from './create-class-form';
 import { Configuration } from './configuration';
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-const timeSlots = Array.from({ length: 11 }, (_, i) => {
+const timeSlots = Array.from({ length: 15 }, (_, i) => {
   const hour = 8 + i;
   return `${hour.toString().padStart(2, '0')}:00`;
 });
@@ -41,7 +41,7 @@ export function Schedule () {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5" />
-            <span className="text-sm font-medium">Setmana actual: {getCurrentWeek(scheduleData)}</span>
+            <span className="text-sm font-medium">Setmana actual: {selectedWeek}</span>
           </div>
           <Configuration nextWeek={selectedWeek === '1' ? '2' : '1'} setNextWeek={setSelectedWeek} setSchedule={setScheduleData} />
         </div>
@@ -56,7 +56,7 @@ export function Schedule () {
           {timeSlots.map((time) => (
             <div
               key={time}
-              className="h-[50px] border-b border-gray-200 flex items-center justify-end pr-4 text-sm text-gray-600"
+              className="h-[80px] border-b border-gray-200 flex items-center justify-end pr-4 text-sm text-gray-600"
             >
               {time}
             </div>
@@ -76,7 +76,7 @@ export function Schedule () {
             {timeSlots.map((time) => {
               const classes = getClassForTimeSlot(day, time, selectedWeek, scheduleData);
               return (
-                <div key={`${day}-${time}`} className="h-[50px] border-b border-gray-200 relative">
+                <div key={`${day}-${time}`} className="h-[80px] border-b border-gray-200 relative">
                   {classes.map((classInfo) =>
                     parseInt(classInfo.timeStart.split(':')[0]) === parseInt(time.split(':')[0]) && (
                       <>
@@ -89,7 +89,7 @@ export function Schedule () {
                             'transition-all cursor-pointer duration-300 hover:scale-[1.02]'
                           )}
                           style={{
-                            height: `calc(${getClassDuration(classInfo.timeStart, classInfo.timeEnd) * 3}rem - 8px)`,
+                            height: `calc(${getClassDuration(classInfo.timeStart, classInfo.timeEnd) * 5}rem - 8px)`,
                             width: '90%',
                             left: '5%',
                             marginTop: '4px',

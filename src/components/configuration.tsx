@@ -61,8 +61,8 @@ export function Configuration ({ nextWeek, setNextWeek, setSchedule }: ConfigPro
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={() => {
-            setSchedule(schedules[0].schedule);
-            window.localStorage.setItem('schedule', JSON.stringify(schedules[0].schedule));
+            setSchedule(schedules[1].schedule);
+            window.localStorage.setItem('schedule', JSON.stringify(schedules[1].schedule));
           }}>
             <div className='flex flex-row w-full justify-between items-center gap-2'>
               Horari per defecte
